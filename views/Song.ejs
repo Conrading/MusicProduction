@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="home.css" />
+    <title>IPFS</title>
+  </head>
+  <body>
+    <header>
+        <a href="home">
+            <img src="Logo_mango.png" class="mango-logo" />
+        </a>
+
+
+    </header>
+        <main>
+                <h1>Upload a sound</h1>
+                <br /><br />
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    
+                    <label>Choose a file</label>
+                    <input type="file" name="file" />
+                    <br /><br />
+                    <label>Choose your share in percentage (number between 0-1):</label>
+                    <input type="text" name="usershare" />
+                    <br /><br />
+                    <label>Previous sound ID:</label>
+                    <input type="text" name="previousID" />
+                    <br /><br />
+
+                    <input type="submit" value="Submit" />
+                </form>
+
+        </main>
+    <footer class="mango-footer">
+      <p>Copyright © 2019 SmartMango</p >
+      <p>Contact</p >
+    </footer>
+  </body>
+</html>

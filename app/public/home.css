@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+main {
+  flex: 1;
+  font-family: "Times New Roman", Times, serif;
+  color: #444;
+  margin: 10;
+  padding: 0px 0px 6px 0px;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: normal;
+  align-items: center;
+}
+
+footer {
+  width: 100%;
+  height: 86px;
+  background-color: whitesmoke;
+  text-align: center;
+}
+
+.mango-logo {
+  width: 600px;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: "Times New Roman", Times, serif;
+  color: #444;
+  margin: 0;
+  padding: 0px 0px 6px 0px;
+  font-size: 30px;
+  line-height: 60px;
+  letter-spacing: -2px;
+  font-weight: bold;
+  text-decoration: none;
+  align-items: center;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.welcome {
+  font-family: "Times New Roman", Times, serif;
+  color: #444;
+  margin: 0;
+  padding: 0px 0px 6px 0px;
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  align-items: center;
+}
+
+h1 {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  color: #444;
+  margin: 0;
+  padding: 0px 0px 6px 0px;
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+}

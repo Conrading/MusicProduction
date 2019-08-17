@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="home.css" />
+
+<body>
+    <header>
+        <a href="home">
+            <img src="Logo_mango.png" class="mango-logo" />
+        </a>
+
+
+    </header>
+        <main>
+            <h1>File uploaded!</h1>
+            <p>Previous ID: <%= previousID %> </p>
+            <p>usershare: <%= userShare %> </p>
+            <p>Link: <a href="https://ipfs.io/ipfs/<%= fileHash %>"><%= fileHash %></a></p>
+
+        </main>
+    <footer class="mango-footer">
+      <p>Copyright © 2019 SmartMango</p >
+      <p>Contact</p >
+    </footer>
+  </body>
+</html>

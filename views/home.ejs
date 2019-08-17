@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="home.css" />
+    <title>IPFS</title>
+  </head>
+
+  <body>
+    <header>
+      <img src="Logo_mango.png" class="mango-logo" />
+    </header>
+
+    <main>
+      <h3>Welcome <%= pub_key %>!</h3>
+      <p>Your current balance is <%= balance %></p>
+      <br/>
+      <html>
+        <body>
+          <div>
+            <li>
+              <a class="nav-link active" href="Transaction">Execute a money transaction</a>
+            </li>
+            <li>
+              <a class="nav-link" href="ValidatorFee">Become a possible validator</a>
+            </li>
+            <li>
+              <a class="nav-link" href="Stake">Put money in the stake</a>
+            </li>
+            <li>
+              <a class="nav-link" href="Song">Upload a sound</a>
+            </li>
+            <li>
+              <a class="nav-link" href="Royalty">Buy a song</a>
+            </li>
+            <li>
+              <a class="nav-link" href="Contract">Create a contract</a>
+            </li>
+            <li>
+              <a class="nav-link" href="transactions">See the transactions in the transaction pool</a>
+            </li>
+            <li>
+              <a class="nav-link" href="blocks">See the blocks in the blockchain</a>
+            </li>
+          </div>
+        </body>
+      </html>
+    </main>
+    
+    <footer class="mango-footer">
+      <p>Copyright © 2019 SmartMango</p >
+      <p>Contact</p >
+    </footer>
+  </body>
+</html>

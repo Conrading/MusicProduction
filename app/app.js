@@ -1,12 +1,10 @@
-//const ipfsClient = require('ipfs-http-client');
-const proxy = require('http-proxy-middleware');
+const ipfsClient = require('ipfs-http-client');
 const express = require('express');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 
-
-//const ipfs = new ipfsClient({ host: 'localhost', port: '5001', protocol:'http'});
+const ipfs = new ipfsClient({ host: 'localhost', port: '5001', protocol:'http'});
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -49,7 +47,7 @@ app.get('/Contract', (req, res) => {
 
 
 //handle the upload of a file via ipfs
-/*app.post('/upload', (req,res) => {
+app.post('/upload', (req,res) => {
     const file = req.files.file;
     const fileName = req.body.fileName;
     const filePath = 'files/' + fileName;
@@ -71,14 +69,14 @@ app.get('/Contract', (req, res) => {
     });
 });
 
-//const addFile = async (fileName, filePath) => {
-    //const file = fs.readFileSync(filePath);
-    //const fileAdded = await ipfs.add({path: fileName, content: file});
-    //const fileHash = fileAdded[0].hash;
+const addFile = async (fileName, filePath) => {
+    const file = fs.readFileSync(filePath);
+    const fileAdded = await ipfs.add({path: fileName, content: file});
+    const fileHash = fileAdded[0].hash;
 
-    //return fileHash;
-//}
-*/
+    return fileHash;
+}
+
 app.listen(8080, () => {
     console.log('Server is listening on port 8080');
 });

@@ -7,16 +7,16 @@ const Wallet = require("../wallet/wallet");
 const TransactionPool = require("../wallet/transaction-pool");
 const { TRANSACTION_THRESHOLD } = require("../config");
 const Block = require("../blockchain/block");
-//const Hash = require('ipfs-only-hash')
+const Hash = require('ipfs-only-hash')
 var SHA256 = require("crypto-js/sha256");
 
 ////////////// ipfs ///////////////////
 
-//const ipfsClient = require('ipfs-http-client');
+const ipfsClient = require('ipfs-http-client');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 
-//const ipfs = new ipfsClient({ host: 'localhost', port: '5001', protocol:'http'});
+const ipfs = new ipfsClient({ host: 'localhost', port: '5001', protocol:'http'});
 
 /////////////// end ipfs //////////////
 
@@ -33,7 +33,7 @@ const transactionPool = new TransactionPool();
 const p2pserver = new P2pserver(blockchain, transactionPool, wallet);
 
 ///////////////// ipfs ///////////////////////
-/*
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(fileUpload());
@@ -83,14 +83,14 @@ app.post('/upload', (req,res) => {
   const previousID = req.body.previousID;
   const type = "SONG";
   let to, amount, prodShare, paymentMethod;
-  //let fileHash;
+  let fileHash;
 
   file.mv(filePath, async (err) => {
 
-    //fileHash = await Hash.of(filePath);
+    fileHash = await Hash.of(filePath);
 
     let leader = blockchain.getLeader();
-    const transaction = wallet.createTransaction( to, amount, type, blockchain, transactionPool, prodShare, userShare, paymentMethod, previousID); //ill fileHash
+    const transaction = wallet.createTransaction( to, amount, type, blockchain, transactionPool, fileHash, prodShare, userShare, paymentMethod, previousID);
 
     if (transaction != false) {
       p2pserver.broadcastTransaction(transaction);
@@ -112,15 +112,15 @@ app.post('/upload', (req,res) => {
               return res.status(500).send(err);
           }
   
-          //fileHash = await addFile(fileName, filePath);
-          //fs.unlink(filePath, (err) => {
-              //if (err) console.log(err);
-          //);
+          fileHash = await addFile(fileName, filePath);
+          fs.unlink(filePath, (err) => {
+              if (err) console.log(err);
+          });
   
-          //res.render('upload', { fileName, userShare, previousID}); //kill fileHash 
+          res.render('upload', { fileName, fileHash, userShare, previousID});
       });
     }else{
-      res.render('song_not_uploaded', { fileName, userShare, previousID}); //kill fileHash
+      res.render('song_not_uploaded', { fileName, fileHash, userShare, previousID});
     }
 
   });
@@ -136,14 +136,14 @@ app.post('/upload_contract', (req,res) => {
   transactionIDs = transactionIDs.split(",");
   transactionIDs = JSON.parse(transactionIDs);
   const paymentMethod = req.body.paymentMethod;
-  //let songHash;
+  let songHash;
 
   file.mv(filePath, async (err) => {
 
-    //songHash = await Hash.of(filePath);
+    songHash = await Hash.of(filePath);
 
     let leader = blockchain.getLeader();
-    const contract = wallet.createContract(blockchain, transactionPool, paymentMethod, transactionIDs, prodShare); //kill songHash
+    const contract = wallet.createContract(blockchain, transactionPool, paymentMethod, transactionIDs, songHash, prodShare);
     let userShares;
     if(contract != false) {
       userShares = JSON.stringify(contract.output.userShares, null, 4);
@@ -169,28 +169,28 @@ app.post('/upload_contract', (req,res) => {
               return res.status(500).send(err);
           }
   
-          //songHash = await addFile(fileName, filePath);
-          //fs.unlink(filePath, (err) => {
-              //if (err) console.log(err);
-          //});
+          songHash = await addFile(fileName, filePath);
+          fs.unlink(filePath, (err) => {
+              if (err) console.log(err);
+          });
   
-          res.render('upload_contract', { userShares, transactionIDs, prodShare});// kill songHash
+          res.render('upload_contract', { songHash, userShares, transactionIDs, prodShare});
       });
     }else{
-      res.render('contract_not_uploaded', { userShares, transactionIDs, prodShare});// kill songHash
+      res.render('contract_not_uploaded', { songHash, userShares, transactionIDs, prodShare});
     }
 
   });
 
 });
 
-  //const addFile = async (fileName, filePath) => {
-  //const file = fs.readFileSync(filePath);
-  //const fileAdded = await ipfs.add({path: fileName, content: file});
-  //const fileHash = fileAdded[0].hash;
+const addFile = async (fileName, filePath) => {
+  const file = fs.readFileSync(filePath);
+  const fileAdded = await ipfs.add({path: fileName, content: file});
+  const fileHash = fileAdded[0].hash;
 
-  //return fileHash;
-//}
+  return fileHash;
+}
 
 app.post("/transact_gui", (req, res) => {
   let leader = blockchain.getLeader();
@@ -214,9 +214,9 @@ app.post("/transact_gui", (req, res) => {
   }
 });
 
-*/
+
 ////////////////// ipfs end /////////////////////////
-/*
+
 //Series of get and post used mostly for debugging via postman
 app.get("/transactions", (req, res) => {
   res.json(transactionPool.transactions);
@@ -249,8 +249,8 @@ app.post("/transact", (req, res) => {
 
 app.post("/contract", (req, res) => {
   let leader = blockchain.getLeader();
-  const { paymentMethod, transactionIDs, prodShare } = req.body; //kill songHash
-  const contract = wallet.createContract(blockchain, transactionPool, paymentMethod, transactionIDs, prodShare); //kill songHash
+  const { paymentMethod, transactionIDs, songHash, prodShare } = req.body;
+  const contract = wallet.createContract(blockchain, transactionPool, paymentMethod, transactionIDs, songHash, prodShare);
 
   p2pserver.broadcastTransaction(contract);
 
@@ -264,7 +264,7 @@ app.post("/contract", (req, res) => {
   }
   res.redirect("/transactions");
 });
-*/
+
 app.get("/public-key", (req, res) => {
   res.json({ publicKey: wallet.publicKey });
 });
