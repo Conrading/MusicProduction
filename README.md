@@ -15,3 +15,6 @@
 1. Send coins to the nodes using ico
 2. Recievers can now send stake transactions to be eligible to be elected as leader
 3. Recievers can now send normal transactions to other nodes
+
+
+This Code is made by: #CristianDiPaolo, #GiulioSidoretti
