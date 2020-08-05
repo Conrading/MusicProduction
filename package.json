@@ -16,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "ejs": "^2.6.2",
-    "express-fileupload": "^1.1.5",
+    "express-fileupload": "^1.1.9",
     "ipfs-http-client": "^33.1.0",
     "ipfs-only-hash": "^1.0.2",
     "jest": "^22.4.4",
